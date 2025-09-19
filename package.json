@@ -1,0 +1,21 @@
+{
+  "name": "tts-automation",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "smoke": "tsx tts_smoke.ts",
+    "test": "playwright test -g \"TTS golden\"",
+    "test:ui": "playwright test --ui",
+    "prepare": "playwright install",
+    "mock": "tsx mock_server.ts",
+    "report": "tsx generate_report.ts",
+    "clean": "powershell -NoProfile -Command \"Remove-Item -Recurse -Force outputs, test-results, playwright-report -ErrorAction SilentlyContinue\""
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.47.2",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2"
+  }
+}
+
