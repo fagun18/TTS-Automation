@@ -13,13 +13,21 @@ npx playwright install
 
 ### One-command run
 ```powershell
-./run_all.ps1               # uses mock at http://localhost:3000/synthesize
+PowerShell:
+  ./run_all.ps1             # uses mock at http://localhost:3000/synthesize (beep tone)
+  ./run_all.ps1 -RealVoice  # uses real voice via Edge TTS (spoken audio)
+CMD:
+  run_all.cmd               # wrapper for cmd.exe (beep tone)
+  run_all.cmd -RealVoice    # wrapper with real voice
 # Output: .\outputs\*.mp3, run_results.csv, report.html (and wer_results.csv if enabled)
 ```
 
 To include WER back-eval in the same run (first time will download Whisper):
 ```powershell
-./run_all.ps1 -WithWer
+PowerShell:
+  ./run_all.ps1 -WithWer
+CMD:
+  run_all.cmd -WithWer
 ```
 
 ### Mock TTS server (local)

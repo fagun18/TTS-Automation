@@ -1,16 +1,20 @@
 param(
   [int]$Port = 3000,
-  [switch]$WithWer
+  [switch]$WithWer,
+  [switch]$RealVoice
 )
 
 $ErrorActionPreference = "Stop"
+
+if ($RealVoice) { $env:MOCK_REAL_VOICE = "1" } else { if (-not $env:MOCK_REAL_VOICE) { $env:MOCK_REAL_VOICE = "0" } }
 
 Write-Host "Preparing mock server on port $Port..." -ForegroundColor Cyan
 if ($env:MOCK_REAL_VOICE -eq "1") {
   Write-Host "Real voice enabled: ensuring Python venv and requirements..." -ForegroundColor Cyan
   if (-not (Test-Path ".\.venv")) { python -m venv .venv }
+  try { .\.venv\Scripts\python.exe -m ensurepip --upgrade } catch {}
   .\.venv\Scripts\python.exe -m pip install --upgrade pip
-  .\.venv\Scripts\pip.exe install -r requirements.txt
+  .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 }
 try {
   $conn = Get-NetTCPConnection -LocalPort $Port -ErrorAction Stop
